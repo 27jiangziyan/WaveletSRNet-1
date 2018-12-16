@@ -10,33 +10,6 @@ import torchvision.transforms as transforms
 def is_image_file(filename):
     return any(filename.endswith(extension) for extension in [".png", ".jpg", ".jpeg"])
     
-def readlinesFromFile(path, datasize):
-    print("Load from file %s" % path)
-    f=open(path)
-    data=[]    
-    for idx in xrange(0, datasize):
-      line = f.readline()
-      data.append(line)      
-    
-    f.close()  
-    return data  
-    
-def loadFromFile(path, datasize):
-    if path is None:
-      return None, None
-      
-    print("Load from file %s" % path)
-    f=open(path)
-    data=[]
-    label=[]
-    for idx in xrange(0, datasize):
-      line = f.readline().split()
-      data.append(line[0])         
-      label.append(line[1])
-       
-    f.close()  
-    return data, label     
-    
 def load_video_image(file_path, input_height=128, input_width=None, output_height=128, output_width=None,
               crop_height=None, crop_width=None, is_random_crop=True, is_mirror=True,
               is_gray=False, scale=1.0, is_scale_back=False):
@@ -86,6 +59,8 @@ class ImageDatasetFromFile(data.Dataset):
     def __init__(self, image_list, root_path, input_height=128, input_width=None, output_height=128, output_width=None,
               crop_height=None, crop_width=None, is_random_crop=True, is_mirror=True,
               is_gray=False, upscale=1.0, is_scale_back=False):
+# image_list is a csv file here.
+
         super(ImageDatasetFromFile, self).__init__()
                 
         self.image_filenames = image_list        
